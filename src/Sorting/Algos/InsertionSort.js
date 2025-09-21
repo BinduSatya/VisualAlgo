@@ -4,20 +4,20 @@ export const InsertionSort = async (
   array,
   setArray,
   setActive,
-  setDisabled
+  setDisabled,
+  speedRef
 ) => {
   const n = array.length;
   const finalised = [];
   setDisabled(true);
-  console.log("Array received for Insertion Sort:", array);
   for (let i = 1; i < n; i++) {
-    console.log(array);
     let key = array[i];
     let j = i - 1;
     while (j >= 0 && array[j] > key) {
       setActive({ keyIdx: i, compareIdx: [j], finalised: [] });
       array[j + 1] = array[j];
-      await delay(500);
+      setArray([...array]);
+      await delay(speedRef.current);
       j--;
     }
     array[j + 1] = key;
@@ -34,7 +34,7 @@ export const InsertionSort = async (
       compareIdx: [],
       finalised: [...finalised],
     });
-    await delay(100);
+    await delay(speedRef.current);
   }
   return array;
 };

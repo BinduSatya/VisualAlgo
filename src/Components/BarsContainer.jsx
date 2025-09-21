@@ -12,7 +12,7 @@ const BarsContainer = ({ array, active }) => {
         else if (active.compareIdx.includes(idx)) color = "yellow"; // comparing
         return (
           <div
-            className="array-bar"
+            className={`array-bar cursor-pointer bg-[#222]`}
             key={idx}
             style={{
               marginRight: "2px",

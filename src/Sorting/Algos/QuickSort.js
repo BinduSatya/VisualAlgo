@@ -1,6 +1,12 @@
 import { delay } from "../../utils/utils";
 
-export const QuickSort = async (array, setArray, setActive, setDisabled) => {
+export const QuickSort = async (
+  array,
+  setArray,
+  setActive,
+  setDisabled,
+  speedRef
+) => {
   const finalised = [];
 
   const partition = async (low, high) => {
@@ -13,13 +19,13 @@ export const QuickSort = async (array, setArray, setActive, setDisabled) => {
         compareIdx: [j, i >= low ? i : null].filter((idx) => idx !== null),
         finalised: [...finalised],
       });
-      await delay(300);
+      await delay(speedRef.current);
 
       if (array[j] < pivot) {
         i++;
         [array[i], array[j]] = [array[j], array[i]];
         setArray([...array]);
-        await delay(300);
+        await delay(speedRef.current);
       }
     }
 
@@ -27,7 +33,7 @@ export const QuickSort = async (array, setArray, setActive, setDisabled) => {
     finalised.push(i + 1);
     setActive({ keyIdx: null, compareIdx: [], finalised: [...finalised] });
     setArray([...array]);
-    await delay(300);
+    await delay(speedRef.current);
 
     return i + 1;
   };

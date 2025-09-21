@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { InsertionSort } from "./Algos/InsertionSort.js";
 import { MergeSort } from "./Algos/MergeSort.js";
 import { QuickSort } from "./Algos/QuickSort.js";
@@ -15,7 +15,15 @@ const SortingPage = () => {
     finalised: [],
   });
   const [disabled, setDisabled] = useState(false);
+  const [speed, setSpeed] = useState(300);
+  const speedRef = useRef(speed);
 
+  // keep ref updated with latest speed
+  useEffect(() => {
+    speedRef.current = speed;
+  }, [speed]);
+
+  // generate initial array
   useEffect(() => {
     setArray(generateRandomArray(setActive));
   }, []);
@@ -25,75 +33,85 @@ const SortingPage = () => {
       <h1 className="text-white text-3xl font-bold mb-8">
         Sorting Algorithms Visualization
       </h1>
+
       <BarsContainer array={array} active={active} />
-      <button
-        className="mt-4 px-14 py-2 bg-green-500 text-white rounded cursor-pointer"
-        disabled={disabled}
-        style={{ opacity: disabled ? 0.5 : 1 }}
-        onClick={() => {
-          setArray(generateRandomArray(setActive));
-        }}
-      >
-        Generate Array
-      </button>
-      <div className="mt-4">
+
+      {/* Controls */}
+      <div className="flex items-center gap-6 mt-6">
         <button
-          className="mx-2 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
+          className="px-14 py-2 bg-green-500 text-white rounded cursor-pointer"
           disabled={disabled}
           style={{ opacity: disabled ? 0.5 : 1 }}
-          onClick={() => {
-            setDisabled(true);
-            InsertionSort(array, setArray, setActive, setDisabled);
-            setArray([...array]);
-          }}
+          onClick={() => setArray(generateRandomArray(setActive))}
+        >
+          Generate Array
+        </button>
+
+        <input
+          type="range"
+          min="10"
+          max="1000"
+          step="10"
+          value={speed}
+          className="cursor-pointer"
+          onChange={(e) => setSpeed(Number(e.target.value))}
+        />
+        <span className="text-white">{speed} ms</span>
+      </div>
+
+      {/* Sorting buttons */}
+      <div className="mt-6 flex flex-wrap gap-3">
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
+          disabled={disabled}
+          style={{ opacity: disabled ? 0.5 : 1 }}
+          onClick={() =>
+            InsertionSort(array, setArray, setActive, setDisabled, speedRef)
+          }
         >
           Insertion Sort
         </button>
+
         <button
-          className="mx-2 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
+          className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
           disabled={disabled}
           style={{ opacity: disabled ? 0.5 : 1 }}
-          onClick={(array) => {
-            setDisabled(true);
-            MergeSort(array, setArray, active, setActive, setDisabled);
-            setArray([...array]);
-          }}
+          onClick={() =>
+            MergeSort(array, setArray, setActive, setDisabled, speedRef)
+          }
         >
           Merge Sort
         </button>
+
         <button
-          className="mx-2 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
+          className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
           disabled={disabled}
           style={{ opacity: disabled ? 0.5 : 1 }}
-          onClick={() => {
-            setDisabled(true);
-            QuickSort(array, setArray, setActive, setDisabled);
-            setArray([...array]);
-          }}
+          onClick={() =>
+            QuickSort(array, setArray, setActive, setDisabled, speedRef)
+          }
         >
           Quick Sort
         </button>
+
         <button
-          className="mx-2 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
+          className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
           disabled={disabled}
           style={{ opacity: disabled ? 0.5 : 1 }}
-          onClick={(array) => {
-            setDisabled(true);
-            BubbleSort(array, setArray, setActive, setDisabled);
-            setArray([...array]);
-          }}
+          onClick={() =>
+            BubbleSort(array, setArray, setActive, setDisabled, speedRef)
+          }
         >
           Bubble Sort
         </button>
+
         <button
-          className="mx-2 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
+          className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
           disabled={disabled}
           style={{ opacity: disabled ? 0.5 : 1 }}
-          onClick={(array) => {
-            setDisabled(true);
-            SelectionSort(array, setArray, setActive, setDisabled);
-            setArray([...array]);
-          }}
+          onClick={() =>
+            SelectionSort(array, setArray, setActive, setDisabled, speedRef)
+          }
         >
           Selection Sort
         </button>
