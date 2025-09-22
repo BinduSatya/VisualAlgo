@@ -28,8 +28,8 @@ const SortingPage = () => {
   }, [count]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-full bg-gray-500">
-      <h1 className="text-white text-3xl font-bold mb-8">
+    <div className="flex flex-col items-center justify-center h-screen w-full bg-black">
+      <h1 className="text-white text-3xl font-bold m-4">
         Sorting Algorithms Visualization
       </h1>
 
@@ -37,7 +37,7 @@ const SortingPage = () => {
 
       <div className="flex items-center gap-6 mt-6">
         <button
-          className="px-5 py-2 rounded-lg shadow-md transition-all duration-200 bg-emerald-500 hover:bg-emerald-600 font-semibold text-white hover:shadow-[0_0_10px_rgba(16,185,129,0.8)]"
+          className="btn btn-neutral btn-outline btn btn-xs sm:btn-sm md:btn-md"
           disabled={disabled}
           onClick={() => setArray(generateRandomArray(setActive, count))}
         >
@@ -45,18 +45,17 @@ const SortingPage = () => {
         </button>
 
         <label htmlFor="">
-          <div className="flex flex-row justify-center items-center">
-            <span> Speed :</span>
+          <div className="flex flex-row justify-center items-center gap-3 text-white">
+            <span className="font-medium">Speed:</span>
             <input
               type="range"
               min="10"
               max="1000"
               step="10"
               value={speed}
-              className="cursor-pointer"
               onChange={(e) => setSpeed(Number(e.target.value))}
+              className="w-60 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500 transform -rotate-180"
             />
-            <span className="text-white">{speed} ms</span>
           </div>
         </label>
 
@@ -69,7 +68,10 @@ const SortingPage = () => {
               max="100"
               step="10"
               value={count}
-              className="cursor-pointer"
+              className="
+      w-50 h-2 bg-gray-700 rounded-lg cursor-pointer
+      accent-gray-900
+    "
               onChange={(e) => setCount(Number(e.target.value))}
             />
             <span className="text-white">{count}</span>
@@ -77,18 +79,21 @@ const SortingPage = () => {
         </label>
       </div>
 
-      {/* Sorting buttons */}
-      <div className="mt-6 flex flex-wrap gap-3">
+      <div className="my-6 flex flex-wrap gap-3">
         {algorithms.map((algo) => (
           <button
             key={algo.name}
-            className={`px-5 py-2 rounded-lg shadow-md transition-all duration-200 ${
-              clicked === algo.name
-                ? "bg-white text-blue-600 border-2 border-blue-600 shadow-lg scale-105"
-                : "bg-blue-600 text-white hover:bg-blue-700"
-            } ${disabled ? "cursor-not-allowed" : "cursor-pointer"}`}
-            disabled={disabled}
-            style={{ opacity: disabled ? 0.5 : 1 }}
+            className={`btn btn-soft  
+              ${clicked === algo.name ? "btn-primary" : "btn btn-accent"} ${
+              disabled
+                ? clicked === algo.name
+                  ? "btn-primary"
+                  : "btn btn-disabled"
+                : "btn-accent"
+            }`}
+            tabIndex="-1"
+            role="button"
+            aria-disabled="true"
             onClick={() => {
               setClicked(algo.name);
               algo.func(
