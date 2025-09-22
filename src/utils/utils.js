@@ -4,9 +4,9 @@ const getRandomNumber = (min, max) => {
 
 export const generateRandomArray = (
   setActive,
+  count = 10,
   min = 50,
-  max = 300,
-  count = 10
+  max = 300
 ) => {
   const result = [];
   for (let i = 0; i < count; i++) {

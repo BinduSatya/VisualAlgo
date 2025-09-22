@@ -5,7 +5,8 @@ export const QuickSort = async (
   setArray,
   setActive,
   setDisabled,
-  speedRef
+  speedRef,
+  setClicked
 ) => {
   const finalised = [];
 
@@ -56,5 +57,6 @@ export const QuickSort = async (
   setArray([...array]);
   setActive({ keyIdx: null, compareIdx: [], finalised: [...finalised] });
   setDisabled(false);
+  setClicked(null);
   return array;
 };

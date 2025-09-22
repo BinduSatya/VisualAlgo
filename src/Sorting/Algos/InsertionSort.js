@@ -5,7 +5,8 @@ export const InsertionSort = async (
   setArray,
   setActive,
   setDisabled,
-  speedRef
+  speedRef,
+  setClicked
 ) => {
   const n = array.length;
   const finalised = [];
@@ -14,7 +15,7 @@ export const InsertionSort = async (
     let key = array[i];
     let j = i - 1;
     while (j >= 0 && array[j] > key) {
-      setActive({ keyIdx: i, compareIdx: [j], finalised: [] });
+      setActive({ keyIdx: i, compareIdx: [j, j + 1], finalised: [] });
       array[j + 1] = array[j];
       setArray([...array]);
       await delay(speedRef.current);
@@ -36,5 +37,6 @@ export const InsertionSort = async (
     });
     await delay(speedRef.current);
   }
+  setClicked(null);
   return array;
 };

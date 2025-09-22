@@ -1,4 +1,6 @@
 import SortingPage from "./Sorting/SortingPage";
+import "@radix-ui/themes/styles.css";
+
 
 const App = () => {
   return (
