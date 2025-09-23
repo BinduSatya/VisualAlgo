@@ -14,6 +14,8 @@ export const InsertionSort = async (
   for (let i = 1; i < n; i++) {
     let key = array[i];
     let j = i - 1;
+    setActive({ keyIdx: i, compareIdx: [j, j + 1], finalised: [] });
+    await delay(speedRef.current);
     while (j >= 0 && array[j] > key) {
       setActive({ keyIdx: i, compareIdx: [j, j + 1], finalised: [] });
       array[j + 1] = array[j];

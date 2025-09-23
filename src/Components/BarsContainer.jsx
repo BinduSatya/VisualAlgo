@@ -1,7 +1,10 @@
-const BarsContainer = ({ array, active }) => {
+const BarsContainer = ({ array, active, clicked }) => {
   return (
     <div
-      className="flex flex-row items-end justify-center bg-gray-900 px-4 pb-1 rounded-xl shadow h-400 border border-red"
+      className={`flex flex-row items-end justify-center bg-gray-900 px-4 pb-1 rounded-xl shadow h-400 
+  transition-colors duration-700 ease-in-out ${
+    clicked == null ? "border-2 border-accent" : "border-2 border-primary"
+  }`}
       style={{ width: "80%" }}
     >
       {array.map((value, idx) => {
@@ -12,7 +15,8 @@ const BarsContainer = ({ array, active }) => {
         else if (active.compareIdx.includes(idx)) color = "yellow"; // comparing
         return (
           <div
-            className={`array-bar ml-1 rounded-lg`}
+            // className={`array-bar ml-1 rounded-lg`}
+            className={`array-bar ml-1 mt-2 rounded-tl-lg rounded-tr-lg`}
             key={idx}
             style={{
               // marginRight: "2px",

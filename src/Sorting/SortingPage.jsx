@@ -33,77 +33,153 @@ const SortingPage = () => {
         Sorting Algorithms Visualization
       </h1>
 
-      <BarsContainer array={array} active={active} />
+      <BarsContainer array={array} active={active} clicked={clicked} />
 
       <div className="flex items-center gap-6 mt-6">
         <button
-          className="btn btn-neutral btn-outline btn btn-xs sm:btn-sm md:btn-md"
+          className={`btn btn-accent btn-outline btn btn-xs sm:btn-sm md:btn-md border-2 ${
+            disabled ? "border-primary" : "border-accent"
+          }`}
+          tabIndex="-1"
+          role="button"
+          aria-disabled="true"
           disabled={disabled}
           onClick={() => setArray(generateRandomArray(setActive, count))}
         >
           Generate Array
         </button>
 
-        <label htmlFor="">
-          <div className="flex flex-row justify-center items-center gap-3 text-white">
-            <span className="font-medium">Speed:</span>
+        <div className="flex flex-row justify-center items-center gap-3 text-white select-none">
+          <span className="font-medium">Speed:</span>
+
+          <div>
             <input
               type="range"
-              min="10"
-              max="1000"
+              min="1"
+              max="101"
               step="10"
               value={speed}
               onChange={(e) => setSpeed(Number(e.target.value))}
-              className="w-60 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500 transform -rotate-180"
+              className={`w-60 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer ${
+                disabled ? "accent-primary" : "accent-accent"
+              } transform -rotate-180`}
             />
+            <div className="flex justify-between pl-2.5 mt-2 text-xs ">
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+            </div>
+            <div className="flex justify-between pl-2.5 mt-2 text-xs ">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
+              <span>5</span>
+              <span>6</span>
+              <span>7</span>
+              <span>8</span>
+              <span>9</span>
+              <span>10</span>
+            </div>
           </div>
-        </label>
+        </div>
 
-        <label htmlFor="">
-          <div className="flex flex-row justify-center items-center">
-            <span> Count: </span>
+        <div className="flex flex-row justify-center items-center gap-3 text-white">
+          <span className="font-medium select-none"> Count:</span>
+          <div>
             <input
               type="range"
               min="10"
               max="100"
               step="10"
               value={count}
-              className="
-      w-50 h-2 bg-gray-700 rounded-lg cursor-pointer
-      accent-gray-900
-    "
+              disabled={disabled}
+              className={`w-60 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer ${
+                disabled ? "accent-accent" : "accent-primary"
+              }`}
               onChange={(e) => setCount(Number(e.target.value))}
             />
-            <span className="text-white">{count}</span>
+            <div className="flex justify-between pl-2.5 mt-2 text-xs select-none">
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+              <span>|</span>
+            </div>
+            <div className="flex justify-between pl-2.5 mt-2 text-xs select-none">
+              <span>10</span>
+              <span>20</span>
+              <span>30</span>
+              <span>40</span>
+              <span>50</span>
+              <span>60</span>
+              <span>70</span>
+              <span>80</span>
+              <span>90</span>
+              <span>100</span>
+            </div>
           </div>
-        </label>
+          <span className="pl-5 text-white">
+            <input
+              type="number"
+              name="count"
+              id="count"
+              className="input input-neutral w-15"
+              min={5}
+              disabled={disabled}
+              max={100}
+              value={count}
+              onChange={(e) => {
+                if (Number(e.target.value) < 3) {
+                  setCount(3);
+                } else if (Number(e.target.value) > 100) {
+                  setCount(100);
+                } else setCount(Number(e.target.value));
+              }}
+            />
+          </span>
+        </div>
       </div>
 
       <div className="my-6 flex flex-wrap gap-3">
         {algorithms.map((algo) => (
           <button
             key={algo.name}
-            className={`btn btn-soft  
-              ${clicked === algo.name ? "btn-primary" : "btn btn-accent"} ${
-              disabled
-                ? clicked === algo.name
-                  ? "btn-primary"
-                  : "btn btn-disabled"
-                : "btn-accent"
-            }`}
             tabIndex="-1"
             role="button"
             aria-disabled="true"
+            className={`btn btn-soft 
+              ${
+                disabled
+                  ? clicked === algo.name
+                    ? "btn-primary"
+                    : "btn-disabled"
+                  : "btn-accent"
+              }`}
             onClick={() => {
-              setClicked(algo.name);
-              algo.func(
-                array,
-                setArray,
-                setActive,
-                setDisabled,
-                speedRef,
-                setClicked
-              );
+              disabled === true
+                ? null
+                : (setClicked(algo.name),
+                  algo.func(
+                    array,
+                    setArray,
+                    setActive,
+                    setDisabled,
+                    speedRef,
+                    setClicked
+                  ));
             }}
           >
             {algo.label}
