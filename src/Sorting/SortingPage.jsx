@@ -28,7 +28,7 @@ const SortingPage = () => {
   }, [count]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-full bg-black">
+    <div className="flex flex-col items-center justify-center h-full w-full bg-black">
       <h1 className="text-white text-3xl font-bold m-4">
         Sorting Algorithms Visualization
       </h1>
