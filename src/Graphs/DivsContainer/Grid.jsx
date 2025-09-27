@@ -1,72 +1,81 @@
-import { useEffect, useState } from "react";
-import { wallStore, gridStore } from "../../state/zustand.jsx";
+import { useState } from "react";
+import { gridStore } from "../../state/zustand.jsx";
 
-const Grid = ({ clearGrid, setClearGrid }) => {
-  const grid = gridStore((state) => state.grid);
-  const setGrid = gridStore((state) => state.setGrid);
-  const visited = gridStore((state) => state.visited);
-  const path = gridStore((state) => state.path);
-
-  const isVisited = (r, c) => visited.some(([vr, vc]) => vr === r && vc === c);
-  const isPath = (r, c) => path.some(([pr, pc]) => pr === r && pc === c);
-
-  const createWall = wallStore((state) => state.createWall);
-  const setCreateWall = wallStore((state) => state.setCreateWall);
+const Grid = () => {
+  const {
+    rows,
+    cols,
+    grid,
+    setGrid,
+    start,
+    end,
+    setStart,
+    setEnd,
+    visited,
+    path,
+    mode,
+  } = gridStore();
 
   const [isMouseDown, setIsMouseDown] = useState(false);
 
   const toggleWall = (rowIndex, colIndex) => {
     setGrid(
       grid.map((row, r) =>
-        row.map((cell, c) => (r === rowIndex && c === colIndex ? 1 : cell))
+        row.map((cell, c) =>
+          r === rowIndex && c === colIndex ? (cell === 0 ? 1 : 0) : cell
+        )
       )
     );
   };
 
-  useEffect(() => {
-    if (clearGrid) {
-      setGrid(
-        Array.from({ length: 20 }, () => Array.from({ length: 40 }, () => 0))
-      );
-      setClearGrid(false);
-    }
-  }, [clearGrid, setClearGrid]);
+  const isVisited = (r, c) => visited.some(([vr, vc]) => vr === r && vc === c);
+  const isPath = (r, c) => path.some(([pr, pc]) => pr === r && pc === c);
+
   return (
     <div
       className="flex flex-col items-center justify-center"
-      onMouseUp={() => {
-        setCreateWall(false);
-        setIsMouseDown(false);
-      }}
+      onMouseUp={() => setIsMouseDown(false)}
     >
       <div
         className="grid gap-[1px]"
-        style={{ gridTemplateColumns: `repeat(${grid[0].length}, 20px)` }}
+        style={{ gridTemplateColumns: `repeat(${cols}, 20px)` }}
       >
         {grid.map((row, rowIndex) =>
-          row.map((cell, colIndex) => (
-            <div
-              key={`${rowIndex}-${colIndex}`}
-              className={`w-5 h-5 border transition-colors duration-200
-    ${
-      cell === 1
-        ? "bg-primary"
-        : isPath(rowIndex, colIndex)
-        ? "bg-warning"
-        : isVisited(rowIndex, colIndex)
-        ? "bg-accent"
-        : "bg-base-100 hover:bg-secondary"
-    }`}
-              onMouseDown={() => {
-                setCreateWall(true);
-                setIsMouseDown(true);
-                toggleWall(rowIndex, colIndex);
-              }}
-              onMouseEnter={() => {
-                if (isMouseDown && createWall) toggleWall(rowIndex, colIndex);
-              }}
-            />
-          ))
+          row.map((cell, colIndex) => {
+            const isStart =
+              start && start[0] === rowIndex && start[1] === colIndex;
+            const isEnd = end && end[0] === rowIndex && end[1] === colIndex;
+
+            return (
+              <div
+                key={`${rowIndex}-${colIndex}`}
+                className={`w-5 h-5 border transition-colors duration-200
+                  ${
+                    isStart
+                      ? "bg-green-500"
+                      : isEnd
+                      ? "bg-red-500"
+                      : isPath(rowIndex, colIndex)
+                      ? "bg-yellow-400"
+                      : isVisited(rowIndex, colIndex)
+                      ? "bg-blue-400"
+                      : cell === 1
+                      ? "bg-primary"
+                      : "bg-base-100 hover:bg-secondary"
+                  }`}
+                onMouseDown={() => {
+                  setIsMouseDown(true);
+                  if (mode === "wall") toggleWall(rowIndex, colIndex);
+                  else if (mode === "start") setStart([rowIndex, colIndex]);
+                  else if (mode === "end") setEnd([rowIndex, colIndex]);
+                }}
+                onMouseEnter={() => {
+                  if (isMouseDown && mode === "wall")
+                    toggleWall(rowIndex, colIndex);
+                }}
+              />
+            );
+          })
         )}
       </div>
     </div>

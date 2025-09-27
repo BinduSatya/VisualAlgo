@@ -21,11 +21,10 @@ export const runDijkstra = async (start, end, speed) => {
   const prev = Array.from({ length: rows }, () => Array(cols).fill(null));
 
   const visitedOrder = [];
-  const pq = [[0, start[0], start[1]]]; // [distance, row, col]
+  const pq = [[0, start[0], start[1]]]; 
   dist[start[0]][start[1]] = 0;
 
   while (pq.length) {
-    // Sort like priority queue
     pq.sort((a, b) => a[0] - b[0]);
     const [d, r, c] = pq.shift();
 
@@ -40,7 +39,7 @@ export const runDijkstra = async (start, end, speed) => {
     for (let [dr, dc] of directions) {
       const nr = r + dr,
         nc = c + dc;
-      if (!inBounds(nr, nc) || grid[nr][nc] === 1) continue; // skip walls
+      if (!inBounds(nr, nc) || grid[nr][nc] === 1) continue;
       const newDist = d + 1;
       if (newDist < dist[nr][nc]) {
         dist[nr][nc] = newDist;
@@ -50,7 +49,6 @@ export const runDijkstra = async (start, end, speed) => {
     }
   }
 
-  // Reconstruct path
   let path = [];
   let cur = end;
   while (cur) {
