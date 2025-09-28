@@ -1,13 +1,12 @@
 import { gridStore } from "../../state/zustand";
 import { delay } from "../../utils/utils";
 
-export const runDijkstra = async (start, end, speed) => {
+export const runDijkstra = async (start, end, speedRef) => {
   const { grid, setVisited, setPath } = gridStore.getState();
 
   const rows = grid.length;
   const cols = grid[0].length;
 
-  // Directions (up, down, left, right)
   const directions = [
     [1, 0],
     [-1, 0],
@@ -21,7 +20,7 @@ export const runDijkstra = async (start, end, speed) => {
   const prev = Array.from({ length: rows }, () => Array(cols).fill(null));
 
   const visitedOrder = [];
-  const pq = [[0, start[0], start[1]]]; 
+  const pq = [[0, start[0], start[1]]];
   dist[start[0]][start[1]] = 0;
 
   while (pq.length) {
@@ -32,7 +31,7 @@ export const runDijkstra = async (start, end, speed) => {
 
     visitedOrder.push([r, c]);
     setVisited([...visitedOrder]);
-    await delay(speed);
+    await delay(speedRef.current);
 
     if (r === end[0] && c === end[1]) break;
 

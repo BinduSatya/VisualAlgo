@@ -9,6 +9,7 @@ export const gridStore = create((set) => ({
   visited: [],
   path: [],
   mode: "wall",
+  running: false,
 
   setGrid: (newGrid) => set({ grid: newGrid }),
   setStart: (pos) => set({ start: pos }),
@@ -16,6 +17,7 @@ export const gridStore = create((set) => ({
   setVisited: (visited) => set({ visited }),
   setPath: (path) => set({ path }),
   setMode: (mode) => set({ mode }),
+  setRunning: (running) => set({ running }),
 
   clearGrid: () =>
     set({
@@ -26,6 +28,7 @@ export const gridStore = create((set) => ({
       end: null,
       visited: [],
       path: [],
+      running: false,
     }),
 }));
 

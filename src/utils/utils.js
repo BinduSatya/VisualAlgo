@@ -23,4 +23,24 @@ export const delay = async (ms) =>
     }, ms);
   });
 
+import { gridStore } from "../state/zustand";
 
+export const randomizeWalls = () => {
+  const { grid, setGrid, start, end } = gridStore.getState();
+
+  const newGrid = grid.map((row, r) =>
+    row.map((cell, c) => {
+      // Keep start and end cells empty
+      if (
+        (start && start[0] === r && start[1] === c) ||
+        (end && end[0] === r && end[1] === c)
+      ) {
+        return 0;
+      }
+      // Randomly make wall (say 30% chance)
+      return Math.random() < 0.3 ? 1 : 0;
+    })
+  );
+
+  setGrid(newGrid);
+};

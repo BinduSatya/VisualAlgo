@@ -22,7 +22,7 @@ const Grid = () => {
     setGrid(
       grid.map((row, r) =>
         row.map((cell, c) =>
-          r === rowIndex && c === colIndex ? (cell === 0 ? 1 : 0) : cell
+          r === rowIndex && c === colIndex ? (cell === 0 ? 1 : 1) : cell
         )
       )
     );
