@@ -1,4 +1,3 @@
-// src/algorithms/aStar.js
 import { gridStore } from "../../state/zustand.jsx";
 import { delay } from "../../utils/utils";
 
@@ -53,7 +52,7 @@ export const runAStar = async (speedRef) => {
     if (!visited.some(([vr, vc]) => vr === r && vc === c)) {
       visited.push([r, c]);
       setVisited([...visited]);
-      await delay(speedRef.current); // 👈 visualization delay
+      await delay(speedRef.current); 
     }
 
     for (const [dr, dc] of directions) {

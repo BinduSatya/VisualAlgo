@@ -1,4 +1,3 @@
-// src/algorithms/bfs.js
 import { delay } from "../../utils/utils";
 import { gridStore } from "../../state/zustand.jsx";
 
@@ -51,8 +50,8 @@ export const runBFS = async (speedRef) => {
         visited.push([nr, nc]);
         parent[`${nr},${nc}`] = [r, c];
         queue.push([nr, nc]);
-        setVisited([...visited]); // update state
-        await delay(speedRef.current); // 👈 delay for visualization
+        setVisited([...visited]);
+        await delay(speedRef.current);
       }
     }
   }

@@ -54,38 +54,40 @@ const GraphsMainPage = () => {
       <h1 className="text-white text-3xl font-bold m-4">
         Graph Algorithms Visualization
       </h1>
-      <div className="flex gap-4 mb-4">
-        <div className="flex items-center gap-1">
-          <div className="w-5 h-5 bg-primary"></div>
-          <span className="text-white text-sm">Wall</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-5 h-5 bg-green-500 "></div>
-          <span className="text-white text-sm">Start</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-5 h-5 bg-red-500 "></div>
-          <span className="text-white text-sm">End</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-5 h-5 bg-blue-400 "></div>
-          <span className="text-white text-sm">Visited</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-5 h-5 bg-yellow-400 "></div>
-          <span className="text-white text-sm">Path</span>
-        </div>
-      </div>
 
       <div className="flex h-full w-screen mx-10">
         <div className="w-3/4 flex justify-center ml-3 items-center border-r border-gray-700">
-          <Grid />
+          <div className="flex flex-col items-center">
+            <div className="flex gap-4 mb-4">
+              <div className="flex items-center gap-1">
+                <div className="w-5 h-5 bg-primary rounded-md"></div>
+                <span className="text-white text-sm">Wall</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-5 h-5 bg-green-500 rounded-md"></div>
+                <span className="text-white text-sm">Start</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-5 h-5 bg-red-500 rounded-md"></div>
+                <span className="text-white text-sm">End</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-5 h-5 bg-blue-400 rounded-md"></div>
+                <span className="text-white text-sm">Visited</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-5 h-5 bg-yellow-400 rounded-md"></div>
+                <span className="text-white text-sm">Path</span>
+              </div>
+            </div>
+            <Grid />
+          </div>
         </div>
 
         <div className="w-1/4 flex flex-col justify-start items-center gap-3 p-4">
-          <div className="flex">
+          <div className="flex flex-wrap">
             <button
-              className="btn btn-soft mr-4"
+              className="btn btn-soft mr-4 bg-green-500 mt-2"
               onClick={() => {
                 setMode("start");
                 setVisited([]);
@@ -95,7 +97,7 @@ const GraphsMainPage = () => {
               Set Start Point
             </button>
             <button
-              className="btn btn-soft"
+              className="btn btn-soft mr-4 bg-red-700 mt-2"
               onClick={() => {
                 if (start) {
                   setVisited([]);
@@ -108,18 +110,27 @@ const GraphsMainPage = () => {
             >
               Set End Point
             </button>
+
+            <button
+              className="btn btn-soft mr-4 bg-primary mt-2"
+              onClick={() => setMode("wall")}
+            >
+              Create Wall
+            </button>
+            <button
+              className="btn btn-soft text-primary bg-white mt-2 mr-4"
+              onClick={randomizeWalls}
+            >
+              Random Walls
+            </button>
           </div>
-          <button className="btn btn-soft" onClick={() => setMode("wall")}>
-            Create Wall
-          </button>
-          <button className="btn btn-soft" onClick={randomizeWalls}>
-            Random Walls
-          </button>
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap ">
             <button
               className="btn btn-soft ml-4 mt-4"
               onClick={async () => {
                 if (start && end) {
+                  setVisited([]);
+                  setPath([]);
                   await runDijkstra(start, end, speedRef);
                 } else {
                   setError("Please set both start and end points.");
@@ -132,6 +143,8 @@ const GraphsMainPage = () => {
               className="btn btn-soft ml-4 mt-4"
               onClick={async () => {
                 if (start && end) {
+                  setVisited([]);
+                  setPath([]);
                   await handleRunDFS(speedRef);
                 } else {
                   setError("Please set both start and end points.");
@@ -144,6 +157,8 @@ const GraphsMainPage = () => {
               className="btn btn-soft ml-4 mt-4"
               onClick={async () => {
                 if (start && end) {
+                  setVisited([]);
+                  setPath([]);
                   await runBFS(speedRef);
                 } else {
                   setError("Please set both start and end points.");
@@ -156,6 +171,8 @@ const GraphsMainPage = () => {
               className="btn btn-soft ml-4 mt-4"
               onClick={async () => {
                 if (start && end) {
+                  setVisited([]);
+                  setPath([]);
                   await runAStar(speedRef);
                 } else {
                   setError("Please set both start and end points.");
@@ -168,6 +185,8 @@ const GraphsMainPage = () => {
               className="btn btn-soft ml-4 mt-4"
               onClick={async () => {
                 if (start && end) {
+                  setVisited([]);
+                  setPath([]);
                   await runBidirectionalBFS(speedRef);
                 } else {
                   setError("Please set both start and end points.");
@@ -177,8 +196,8 @@ const GraphsMainPage = () => {
               Bi-Direct-BFS
             </button>
           </div>
-          <div className="flex gap-3">
-            <button className="btn btn-soft" onClick={clearGrid}>
+          <div className="flex gap-3 mt-4">
+            <button className="btn btn-soft bg-info" onClick={clearGrid}>
               Clear Grid
             </button>
             <button
@@ -190,7 +209,7 @@ const GraphsMainPage = () => {
           </div>
 
           <div className="flex flex-col gap-2 text-white select-none mt-4">
-            <span className="font-medium">Delay: {1000 - (speed - 100)}ms</span>
+            <span className="font-medium">Speed: {1000 - (speed - 100)}</span>
             <input
               type="range"
               min="100"
@@ -201,9 +220,15 @@ const GraphsMainPage = () => {
               className="w-60 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-accent"
             />
           </div>
+          <div className="flex gap-6 items-center mt-4">
+            <p className="text-blue-400 font-semibold">
+              Visited: <span className="text-white">{visited.length}</span>
+            </p>
+            <p className="text-yellow-400 font-semibold">
+              Path: <span className="text-white">{path.length}</span>
+            </p>
+          </div>
 
-          <p className="text-white">Visited: {visited.length}</p>
-          <p className="text-white">Path: {path.length}</p>
           {error && (
             <div className="toast toast-bottom toast-center">
               <div className="alert alert-error">

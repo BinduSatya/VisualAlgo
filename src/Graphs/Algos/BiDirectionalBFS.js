@@ -16,11 +16,9 @@ export const runBidirectionalBFS = async (speedRef) => {
 
   const inBounds = (r, c) => r >= 0 && c >= 0 && r < rows && c < cols;
 
-  // visited sets for start and end searches
   const visitedFromStart = new Set([`${start[0]}-${start[1]}`]);
   const visitedFromEnd = new Set([`${end[0]}-${end[1]}`]);
 
-  // queues for BFS
   let queueStart = [start];
   let queueEnd = [end];
 
@@ -31,7 +29,6 @@ export const runBidirectionalBFS = async (speedRef) => {
   let visitedOrder = [];
 
   while (queueStart.length && queueEnd.length) {
-    // BFS step from start
     const nextQueueStart = [];
     for (let [r, c] of queueStart) {
       visitedOrder.push([r, c]);
@@ -61,7 +58,6 @@ export const runBidirectionalBFS = async (speedRef) => {
     if (meetingPoint) break;
     queueStart = nextQueueStart;
 
-    // BFS step from end
     const nextQueueEnd = [];
     for (let [r, c] of queueEnd) {
       visitedOrder.push([r, c]);
@@ -87,8 +83,6 @@ export const runBidirectionalBFS = async (speedRef) => {
     if (meetingPoint) break;
     queueEnd = nextQueueEnd;
   }
-
-  // Reconstruct path from start to meeting point and end to meeting point
   if (!meetingPoint) {
     setPath([]);
     return;

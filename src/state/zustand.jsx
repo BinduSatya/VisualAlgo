@@ -28,6 +28,7 @@ export const gridStore = create((set) => ({
       end: null,
       visited: [],
       path: [],
+      mode: "wall",
       running: false,
     }),
 }));
