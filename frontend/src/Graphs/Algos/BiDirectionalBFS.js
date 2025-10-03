@@ -1,4 +1,4 @@
-import { gridStore } from "../../state/zustand";
+import { gridStore } from "../../state/zustand.jsx";
 import { delay } from "../../utils/utils.js";
 
 export const runBidirectionalBFS = async (speedRef) => {

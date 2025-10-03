@@ -1,4 +1,4 @@
-import { delay } from "../../utils/utils";
+import { delay } from "../../utils/utils.js";
 import { gridStore } from "../../state/zustand.jsx";
 
 export const runBFS = async (speedRef) => {

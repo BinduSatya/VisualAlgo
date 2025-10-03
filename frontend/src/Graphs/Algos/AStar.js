@@ -1,5 +1,5 @@
 import { gridStore } from "../../state/zustand.jsx";
-import { delay } from "../../utils/utils";
+import { delay } from "../../utils/utils.js";
 
 const heuristic = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
 
@@ -52,7 +52,7 @@ export const runAStar = async (speedRef) => {
     if (!visited.some(([vr, vc]) => vr === r && vc === c)) {
       visited.push([r, c]);
       setVisited([...visited]);
-      await delay(speedRef.current); 
+      await delay(speedRef.current);
     }
 
     for (const [dr, dc] of directions) {

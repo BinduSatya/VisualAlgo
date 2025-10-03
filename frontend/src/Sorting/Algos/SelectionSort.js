@@ -6,7 +6,8 @@ export const SelectionSort = async (
   setActive,
   setDisabled,
   speedRef,
-  setClicked
+  setClicked,
+  setCompleted
 ) => {
   const n = array.length;
   const finalised = [];
@@ -43,6 +44,7 @@ export const SelectionSort = async (
   });
   setDisabled(false);
   setArray([...array]);
-  setClicked(null);
+  // setClicked(null);
+  setCompleted(true);
   return array;
 };

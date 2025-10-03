@@ -1,12 +1,13 @@
-import Grid from "./DivsContainer/Grid";
+import Grid from "../Components/Grid.jsx";
 import { gridStore } from "../state/zustand.jsx";
-import { runDijkstra } from "./Algos/DjiksthraAlgo";
+import { runDijkstra } from "./Algos/DjiksthraAlgo.js";
 import { useEffect, useRef, useState } from "react";
 import { runDFS } from "./Algos/DFS.js";
 import { runBFS } from "./Algos/BFS.js";
 import { runAStar } from "./Algos/AStar.js";
 import { runBidirectionalBFS } from "./Algos/BiDirectionalBFS.js";
 import { randomizeWalls } from "../utils/utils.js";
+import { Link } from "react-router-dom";
 
 const GraphsMainPage = () => {
   const {
@@ -50,14 +51,20 @@ const GraphsMainPage = () => {
   }, [speed]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full bg-black">
-      <h1 className="text-white text-3xl font-bold m-4">
-        Graph Algorithms Visualization
-      </h1>
-
+    <div className="flex flex-col items-center justify-center h-screen w-full bg-black">
       <div className="flex h-full w-screen mx-10">
+        <div className="position-absolute">
+          <Link to={"/"} className="text-white font-medium hover:underline ">
+            Back
+          </Link>
+        </div>
         <div className="w-3/4 flex justify-center ml-3 items-center border-r border-gray-700">
           <div className="flex flex-col items-center">
+            <div className="flex items-center justify-center w-full px-4 mt-4">
+              <h1 className="text-white text-3xl font-bold m-4">
+                Graph Algorithms Visualization
+              </h1>
+            </div>
             <div className="flex gap-4 mb-4">
               <div className="flex items-center gap-1">
                 <div className="w-5 h-5 bg-primary rounded-md"></div>

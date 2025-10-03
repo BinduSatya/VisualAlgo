@@ -6,7 +6,8 @@ export const MergeSort = async (
   setActive,
   setDisabled,
   speedRef,
-  setClicked
+  setClicked,
+  setCompleted
 ) => {
   if (array.length <= 1) return array;
   setDisabled(true);
@@ -121,6 +122,7 @@ export const MergeSort = async (
 
   setDisabled(false);
   setActive({ keyIdx: null, compareIdx: [], finalised: [] });
-  setClicked(null);
+  // setClicked(null);
+  setCompleted(true);
   return array;
 };

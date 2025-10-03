@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { gridStore } from "../../state/zustand.jsx";
+import { gridStore } from "../state/zustand";
 
 const Grid = () => {
   const {

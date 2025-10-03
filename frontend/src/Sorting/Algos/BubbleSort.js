@@ -6,7 +6,8 @@ export const BubbleSort = async (
   setActive,
   setDisabled,
   speedRef,
-  setClicked
+  setClicked,
+  setCompleted
 ) => {
   const n = array.length;
   const finalised = [];
@@ -34,6 +35,7 @@ export const BubbleSort = async (
   setDisabled(false);
   setActive({ keyIdx: -1, compareIdx: [], finalised: [...finalised] });
   setArray([...array]);
-  setClicked(null);
+  // setClicked(null);
+  setCompleted(true);
   return array;
 };
