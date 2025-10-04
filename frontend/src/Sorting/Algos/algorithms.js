@@ -6,27 +6,27 @@ import { SelectionSort } from "./SelectionSort.js";
 
 export const algorithms = [
   {
-    name: "Insertion",
+    name: "InsertionSort",
     label: "Insertion Sort",
     func: InsertionSort,
   },
   {
-    name: "Merge",
+    name: "MergeSort",
     label: "Merge Sort",
     func: MergeSort,
   },
   {
-    name: "Quick",
+    name: "QuickSort",
     label: "Quick Sort",
     func: QuickSort,
   },
   {
-    name: "Bubble",
+    name: "BubbleSort",
     label: "Bubble Sort",
     func: BubbleSort,
   },
   {
-    name: "Selection",
+    name: "SelectionSort",
     label: "Selection Sort",
     func: SelectionSort,
   },
