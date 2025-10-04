@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { algorithms } from "./Algos/algorithms.js";
 import BarsContainer from "../Components/BarsContainer.jsx";
 import { generateRandomArray } from "../utils/utils.js";
-import { ChatBot, Simulator } from "./Explanations/explanation.js";
+import { Simulator } from "./Explanations/explanation.js";
 import SpeedController from "../Components/SpeedController.jsx";
 import CountController from "../Components/CountController.jsx";
 import QueryContainer from "../Components/QueryContainer.jsx";
@@ -24,10 +24,7 @@ const SortingPage = () => {
   const [clicked, setClicked] = useState(null);
   const [completed, setCompleted] = useState(false);
   const [steps, setSteps] = useState([]);
-  const [chatHistory, setChatHistory] = useState([]);
   const [loadingDryRun, setLoadingDryRun] = useState(false);
-  const [chatWithAI, setChatWithAI] = useState("");
-  const [loadingChatWithAI, setLoadingChatWithAI] = useState(false);
 
   const speedRef = useRef(speed);
   useEffect(() => {
@@ -66,41 +63,6 @@ const SortingPage = () => {
     const newSteps = await Simulator(algo.name, iniArray);
     setSteps(newSteps);
     setLoadingDryRun(false);
-  };
-
-  const handleAskAI = async (e) => {
-    e.preventDefault();
-    if (!chatWithAI.trim()) return;
-    setChatWithAI("");
-    const userInput = {
-      role: "user",
-      content: chatWithAI,
-      timestamp: new Date().toISOString(),
-    };
-    console.log(userInput);
-
-    setChatHistory((prev) => [...prev, userInput]);
-    setLoadingChatWithAI(true);
-    try {
-      const resp = await ChatBot({
-        clicked,
-        iniArray,
-        chatHistory,
-        chatWithAI,
-        setChatHistory,
-      });
-      console.log("response is", resp);
-
-      if (resp) {
-        console.log("in if statement");
-        console.log("curr resp is", resp);
-        setChatHistory((prev) => [...prev, resp]);
-      }
-    } catch (err) {
-      console.error("Error calling ChatBot:", err);
-    } finally {
-      setLoadingChatWithAI(false);
-    }
   };
 
   return (
@@ -152,7 +114,10 @@ const SortingPage = () => {
                       : "btn-disabled"
                     : "btn-accent hover:btn-primary"
                 }`}
-                onClick={() => handleAlgoClick(algo)}
+                onClick={() => {
+                  setSteps([]);
+                  handleAlgoClick(algo);
+                }}
               >
                 {algo.label}
               </button>
@@ -161,15 +126,13 @@ const SortingPage = () => {
         </div>
       </div>
       {completed && (
-        <div className="flex h-screen w-full gap-4 mt-6">
-          <DryRunContainer clicked={clicked} steps={steps} />
-          <QueryContainer
+        <div className="flex h-screen w-full gap-4 mt-3">
+          <DryRunContainer
             clicked={clicked}
-            handleAskAI={handleAskAI}
-            chatWithAI={chatWithAI}
-            setChatWithAI={setChatWithAI}
-            chatHistory={chatHistory}
+            steps={steps}
+            loadingDryRun={loadingDryRun}
           />
+          <QueryContainer clicked={clicked} iniArray={iniArray} />
           <CodeGenerationContainer clicked={clicked} />
         </div>
       )}

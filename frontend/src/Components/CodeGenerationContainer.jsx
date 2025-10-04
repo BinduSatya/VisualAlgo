@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { fetchCodeForLanguage } from "../Sorting/Explanations/explanation.js";
 
-// Utility to clean AI code output (strip markdown fences)
 const cleanCode = (codeString) => {
   if (!codeString) return "";
   return codeString
-    .replace(/```[a-zA-Z]*/g, "") // remove ```python, ```java, etc.
-    .replace(/```/g, "") // remove closing ```
+    .replace(/```[a-zA-Z]*/g, "")
+    .replace(/```/g, "")
     .trim();
 };
 
@@ -43,7 +42,7 @@ const CodeGenerationContainer = ({ clicked }) => {
     <div className="w-1/3 max-h-screen bg-gray-800 rounded-xl shadow-lg border border-gray-600 flex flex-col">
       <div className="flex-none p-4 border-b border-gray-600">
         <h2 className="text-xl font-bold text-accent">
-          {`Show me ${clicked || "Algorithm"} in X Language`}
+          Get Code for <span className="text-white">{clicked}</span>
         </h2>
       </div>
 
@@ -58,7 +57,12 @@ const CodeGenerationContainer = ({ clicked }) => {
         ) : (
           <p className="text-gray-400">
             Select a language and click{" "}
-            <span className="text-accent font-semibold">"Generate Code"</span>{" "}
+            <span
+              className="text-accent font-semibold cursor-pointer"
+              onClick={handleGenerateCode}
+            >
+              "Generate Code"
+            </span>{" "}
             to see the algorithm.
           </p>
         )}

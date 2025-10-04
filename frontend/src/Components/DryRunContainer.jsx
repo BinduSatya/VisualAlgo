@@ -1,16 +1,27 @@
-import React from "react";
+import "../App.css";
 
-const DryRunContainer = ({ clicked, steps }) => {
+const DryRunContainer = ({ clicked, steps, loadingDryRun }) => {
   return (
-    <div className="w-1/3 h-full bg-gray-800 rounded-xl p-4 shadow-lg border border-gray-600 overflow-y-auto">
-      <h2 className="text-xl font-bold mb-4 text-accent border-b border-gray-600 pb-2">
-        Dry-Run Simulation: <span className="text-white">{clicked}</span>
-      </h2>
+    <div
+      className={`w-1/3 max-h-screen bg-gray-800 rounded-xl shadow-lg border border-gray-600 flex flex-col`}
+    >
+      <div className="flex-none p-4 border-b border-gray-600">
+        <h2 className="text-xl font-bold text-accent">
+          Dry-Run Simulation: <span className="text-white">{clicked}</span>
+        </h2>
+      </div>
       <div
         className={`overflow-y-auto text-wrap scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-700 ${
           steps.length > 0 ? "p-3" : ""
-        } bg-gray-900 rounded-md`}
+        } bg-gray-900 rounded-md ${
+          loadingDryRun ? "flex justify-center items-center h-full" : ""
+        }`}
       >
+        {loadingDryRun && (
+          <>
+            <div className="loader bg-accent"></div>
+          </>
+        )}
         <ul className="list-decimal list-inside space-y-2">
           {steps.map((step, i) => (
             <li
@@ -20,7 +31,7 @@ const DryRunContainer = ({ clicked, steps }) => {
               {step}
             </li>
           ))}
-        </ul>
+        </ul>{" "}
       </div>
     </div>
   );

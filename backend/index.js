@@ -93,8 +93,8 @@ Now respond to the following question: ${question}.
 
 Rules:
 - Answer in 1 to 3 points clearly, simple bullet points. Maximum 5 lines total.
-- Only answer if the question is related to this algorithm or it is any thing related about coding, else reply: "Sorry, I'm not trained for this question."
-- Use only plain English and some computer terms that a coder can Understand (no code, no formatting, no special characters). Keep it very concise and easy to read.`;
+- Only answer if the question is related to the sorting/graph or any other algorithms or it is any thing related to coding, else reply: "Sorry, I'm not trained for this input."
+- Use only plain English and some software development terms that a coder can Understand (no code, no formatting, no special characters). Keep it very concise and easy to read.`;
 
     const userInput = {
       role: "user",
