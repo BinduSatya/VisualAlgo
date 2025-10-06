@@ -29,6 +29,7 @@ const GraphsMainPage = () => {
   const [completed, setCompleted] = useState(false);
   const [steps, setSteps] = useState([]);
   const [loadingDryRun, setLoadingDryRun] = useState(false);
+  console.log("hello");
 
   const speedRef = useRef(speed);
 
