@@ -3,7 +3,9 @@ import { algorithms } from "../Algos/algorithms";
 
 export const Simulator = async (algorithm, input) => {
   try {
-    const res = await axios.post("http://localhost:8000/simulate", {
+    const BASE_URL =
+      import.meta.env.VITE_BACKEND_ROUTE || "http://localhost:8000";
+    const res = await axios.post(`${BASE_URL}/simulate`, {
       algorithm: algorithm,
       input: input,
     });
@@ -31,7 +33,10 @@ export const ChatBot = async ({
       "chatWithAI",
       chatWithAI
     );
-    const res = await axios.post("http://localhost:8000/chat-with-ai", {
+    const BASE_URL =
+      import.meta.env.VITE_BACKEND_ROUTE || "http://localhost:8000";
+
+    const res = await axios.post(`${BASE_URL}/chat-with-ai`, {
       algorithm: clicked,
       input: iniArray,
       chatHistory: chatHistory,
@@ -50,16 +55,19 @@ export const ChatBot = async ({
 
 export const fetchCodeForLanguage = async (clicked, selectedLanguage) => {
   try {
+    const BASE_URL =
+      import.meta.env.VITE_BACKEND_ROUTE || "http://localhost:8000";
     console.log(selectedLanguage);
     const algoObj = algorithms.find((algo) => algo.name === clicked);
     if (!algoObj) throw new Error("Algorithm not found");
 
     let codeJs = algoObj.func.toString();
 
-    const response = await axios.post(
-      "http://localhost:8000/get-code-from-ai",
-      { algorithmName: clicked, language: selectedLanguage, code: codeJs }
-    );
+    const response = await axios.post(`${BASE_URL}/get-code-from-ai`, {
+      algorithmName: clicked,
+      language: selectedLanguage,
+      code: codeJs,
+    });
 
     return response.data.code;
   } catch (e) {

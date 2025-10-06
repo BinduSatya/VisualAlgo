@@ -17,21 +17,22 @@ const DryRunContainer = ({ clicked, steps, loadingDryRun }) => {
           loadingDryRun ? "flex justify-center items-center h-full" : ""
         }`}
       >
-        {loadingDryRun && (
+        {loadingDryRun ? (
           <>
             <div className="loader bg-accent"></div>
           </>
+        ) : (
+          <ul className="list-decimal list-inside space-y-2">
+            {steps.map((step, i) => (
+              <li
+                key={i}
+                className="text-gray-200 hover:text-accent transition-colors cursor-pointer duration-200"
+              >
+                {step}
+              </li>
+            ))}
+          </ul>
         )}
-        <ul className="list-decimal list-inside space-y-2">
-          {steps.map((step, i) => (
-            <li
-              key={i}
-              className="text-gray-200 hover:text-accent transition-colors cursor-pointer duration-200"
-            >
-              {step}
-            </li>
-          ))}
-        </ul>{" "}
       </div>
     </div>
   );
