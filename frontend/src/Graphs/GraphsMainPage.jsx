@@ -33,11 +33,13 @@ const GraphsMainPage = () => {
   const speedRef = useRef(speed);
 
   const handleRunDFS = async () => {
+    setLoadingDryRun(true);
     if (!start || !end) {
       console.log("Please set start and end points");
       return;
     }
     await runDFS(grid, start, end, setGrid, speedRef);
+    setLoadingDryRun(false);
   };
 
   useEffect(() => {
