@@ -11,10 +11,12 @@ const DryRunContainer = ({ clicked, steps, loadingDryRun }) => {
         </h2>
       </div>
       <div
-        className={`overflow-y-auto text-wrap scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-700 ${
-          steps.length > 0 ? "p-3" : ""
-        } bg-gray-900 rounded-md ${
-          loadingDryRun ? "flex justify-center items-center h-full" : ""
+        className={`overflow-y-auto text-wrap scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-700 bg-gray-900 rounded-md ${
+          loadingDryRun
+            ? "flex justify-center items-center h-full"
+            : steps.length > 0
+            ? "p-3"
+            : ""
         }`}
       >
         {loadingDryRun ? (

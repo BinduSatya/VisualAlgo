@@ -1,7 +1,7 @@
 import { gridStore } from "../../state/zustand.jsx";
 import { delay } from "../../utils/utils.js";
 
-export const runBidirectionalBFS = async (speedRef) => {
+export const runBidirectionalBFS = async ({ speedRef, setCompleted }) => {
   const { start, end, grid, setVisited, setPath } = gridStore.getState();
 
   const rows = grid.length;
@@ -105,4 +105,5 @@ export const runBidirectionalBFS = async (speedRef) => {
 
   const finalPath = [...pathStart, ...pathEnd];
   setPath(finalPath);
+  setCompleted(true);
 };

@@ -59,8 +59,16 @@ const QueryContainer = ({ clicked, iniArray }) => {
 
       <div
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto p-4 space-y-2"
+        className={`flex-1 overflow-y-auto p-4 space-y-2 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-700 `}
       >
+        {chatHistory.length === 0 ? (
+          <div className="flex justify-center flex-col items-center select-none h-full">
+            <img src="chat-room.png" className="" />
+            <p className="text-white opacity-30 ">
+              Chat with AI about this algorithm!
+            </p>
+          </div>
+        ) : null}
         {chatHistory.map(
           (chat, ind) =>
             chat && (

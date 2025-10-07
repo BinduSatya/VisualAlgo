@@ -145,7 +145,7 @@ const GraphsMainPage = () => {
                 if (start && end) {
                   setVisited([]);
                   setPath([]);
-                  await runDijkstra(start, end, speedRef);
+                  await runDijkstra(start, end, speedRef, setCompleted);
                 } else {
                   setError("Please set both start and end points.");
                 }
@@ -159,7 +159,7 @@ const GraphsMainPage = () => {
                 if (start && end) {
                   setVisited([]);
                   setPath([]);
-                  await handleRunDFS(speedRef);
+                  await handleRunDFS(speedRef, setCompleted);
                 } else {
                   setError("Please set both start and end points.");
                 }
@@ -173,7 +173,7 @@ const GraphsMainPage = () => {
                 if (start && end) {
                   setVisited([]);
                   setPath([]);
-                  await runBFS(speedRef);
+                  await runBFS(speedRef, setCompleted);
                 } else {
                   setError("Please set both start and end points.");
                 }
@@ -187,7 +187,8 @@ const GraphsMainPage = () => {
                 if (start && end) {
                   setVisited([]);
                   setPath([]);
-                  await runAStar(speedRef);
+                  await runAStar(speedRef, setCompleted);
+                  setCompleted(true);
                 } else {
                   setError("Please set both start and end points.");
                 }
@@ -201,7 +202,7 @@ const GraphsMainPage = () => {
                 if (start && end) {
                   setVisited([]);
                   setPath([]);
-                  await runBidirectionalBFS(speedRef);
+                  await runBidirectionalBFS(speedRef, setCompleted);
                 } else {
                   setError("Please set both start and end points.");
                 }
@@ -258,10 +259,10 @@ const GraphsMainPage = () => {
         <div className="flex h-screen w-full gap-4 mt-3">
           <DryRunContainer
             clicked={clicked}
-            steps={steps}
+            steps={path}
             loadingDryRun={loadingDryRun}
           />
-          <QueryContainer clicked={clicked} iniArray={iniArray} />
+          <QueryContainer clicked={clicked} iniArray={grid} />
           <CodeGenerationContainer clicked={clicked} />
         </div>
       )}

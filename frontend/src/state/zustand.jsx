@@ -33,6 +33,8 @@ export const gridStore = create((set) => ({
     }),
 }));
 
+
+
 export const wallStore = create((set) => ({
   createWall: false,
   setCreateWall: (val) => set({ createWall: val }),
