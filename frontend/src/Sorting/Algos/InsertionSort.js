@@ -18,7 +18,6 @@ export const InsertionSort = async (
     let key = array[i];
     let j = i - 1;
 
-    // Show the key separately
     setActive({
       keyIdx: i,
       compareIdx: [j],
@@ -26,13 +25,11 @@ export const InsertionSort = async (
     });
     await delay(speedRef.current);
 
-    // Temporarily remove the key (so it doesn't vanish when shifting)
     const tempArray = [...array];
-    tempArray[i] = null; // placeholder for "floating" key
+    tempArray[i] = null;
     setArray(tempArray);
 
     while (j >= 0 && array[j] > key) {
-      // Highlight comparison
       setActive({
         keyIdx: i,
         compareIdx: [j],
@@ -40,7 +37,6 @@ export const InsertionSort = async (
       });
       await delay(speedRef.current);
 
-      // Shift element right
       array[j + 1] = array[j];
       setArray([...array]);
       await delay(speedRef.current);
@@ -48,7 +44,6 @@ export const InsertionSort = async (
       j--;
     }
 
-    // Insert key into its correct place
     array[j + 1] = key;
     setArray([...array]);
 
@@ -60,7 +55,6 @@ export const InsertionSort = async (
     await delay(speedRef.current);
   }
 
-  // Finalise gradually
   for (let i = 0; i < n; i++) {
     finalised.push(i);
     setActive({
@@ -74,6 +68,5 @@ export const InsertionSort = async (
   setActive({ keyIdx: null, compareIdx: [], finalised: [...finalised] });
   setDisabled(false);
   setCompleted(true);
-
   return array;
 };

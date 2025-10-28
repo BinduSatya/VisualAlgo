@@ -35,7 +35,6 @@ export const BubbleSort = async (
   setDisabled(false);
   setActive({ keyIdx: -1, compareIdx: [], finalised: [...finalised] });
   setArray([...array]);
-  // setClicked(null);
   setCompleted(true);
   return array;
 };

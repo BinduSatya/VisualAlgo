@@ -9,7 +9,7 @@ export const Simulator = async (algorithm, input) => {
       algorithm: algorithm,
       input: input,
     });
-    return res.data.steps;
+    return res?.data?.steps;
   } catch (err) {
     console.error(err.response?.data || err.message);
   }

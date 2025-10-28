@@ -50,6 +50,7 @@ const SortingPage = () => {
   const handleAlgoClick = async (algo) => {
     if (disabled) return;
     setClicked(algo.name);
+    setLoadingDryRun(true);
     algo.func(
       array,
       setArray,
@@ -59,7 +60,6 @@ const SortingPage = () => {
       setClicked,
       setCompleted
     );
-    setLoadingDryRun(true);
     const newSteps = await Simulator(algo.name, iniArray);
     setSteps(newSteps);
     setLoadingDryRun(false);

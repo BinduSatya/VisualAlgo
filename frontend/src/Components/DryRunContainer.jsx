@@ -1,6 +1,7 @@
 import "../App.css";
 
 const DryRunContainer = ({ clicked, steps, loadingDryRun }) => {
+  if (!steps || steps.length === 0) return null;
   return (
     <div
       className={`w-1/3 max-h-screen bg-gray-800 rounded-xl shadow-lg border border-gray-600 flex flex-col`}
@@ -14,9 +15,9 @@ const DryRunContainer = ({ clicked, steps, loadingDryRun }) => {
         className={`overflow-y-auto text-wrap scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-700 bg-gray-900 rounded-md ${
           loadingDryRun
             ? "flex justify-center items-center h-full"
-            : steps.length > 0
-            ? "p-3"
-            : ""
+            : !steps || steps.length === 0
+            ? ""
+            : "p-3"
         }`}
       >
         {loadingDryRun ? (
